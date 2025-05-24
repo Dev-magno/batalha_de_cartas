@@ -13,6 +13,9 @@
  * 
  * ------------ATUALIÇÃO DO PROGRAMA------------
  * O programa foi atualizado para incluir o Cálculo da Densidade Populacional e o PIB per capita.
+ * 
+ * ------------SEGUNDA ATUALIÇÃO DO PROGRAMA------------
+ * O programa foi atualizado para implementar a lógica de comparação entre as duas cartas do Super Trunfo (batalha de cartas), determinando a vencedora de cada atributo e introduzindo o conceito de "Super Poder". 
  */
 #include <stdio.h>
 // Fornece a função strcspn para manipulação de strings, usada para remover '\n' do fgets
@@ -28,6 +31,7 @@ int main() {
     float PIB1;
     int numero_de_pontos_turisticos1;
     float densidade_populacional1;
+    float inverso_densidade1;
     float PIB_per_capita1;
     float superPoder1;
 
@@ -40,6 +44,7 @@ int main() {
     float PIB2;
     int numero_de_pontos_turisticos2;
     float densidade_populacional2;
+    float inverso_densidade2;
     float PIB_per_capita2;
     float superPoder2;
 
@@ -63,7 +68,7 @@ int main() {
 
 
     printf("Digite o número de habitantes da cidade: \n");
-    scanf("%d", &populacao1);
+    scanf("%lu", &populacao1);
 
 
     printf("Digite a área da cidade em km²: \n");
@@ -71,6 +76,9 @@ int main() {
 
     // Calcula densidade populacional (habitantes por km²)
     densidade_populacional1 = (float) populacao1 / area1;
+
+    // Calcula o inverso da densidade populacional (km² por habitante)
+    inverso_densidade1 = area1 / (float) populacao1;
 
 
     printf("Digite o PIB da cidade (use ponto para decimais): \n");
@@ -82,6 +90,9 @@ int main() {
 
     printf("Digite o número de pontos turísticos da cidade: \n");
     scanf("%d", &numero_de_pontos_turisticos1);
+
+    // Calcula o superpoder da carta
+    superPoder1 = ((float)populacao1) + (area1) + (PIB1 * 1e9f) + ((float)numero_de_pontos_turisticos1) + (inverso_densidade1) + (PIB_per_capita1);
 
 
 
@@ -105,7 +116,7 @@ int main() {
 
 
     printf("Digite o número de habitantes da cidade: \n");
-    scanf("%d", &populacao2);
+    scanf("%lu", &populacao2);
 
 
     printf("Digite a área da cidade em km²: \n");
@@ -113,6 +124,10 @@ int main() {
 
     // Calcula densidade populacional (habitantes por km²)
     densidade_populacional2 = (float) populacao2 / area2;
+
+    // Calcula o inverso da densidade populacional (km² por habitante)
+    inverso_densidade2 = area2 / (float) populacao2;
+    
 
 
     printf("Digite o PIB da cidade (use ponto para decimais): \n");
@@ -125,37 +140,58 @@ int main() {
     printf("Digite o número de pontos turísticos da cidade: \n");
     scanf("%d", &numero_de_pontos_turisticos2);
 
+    // Calcula o superpoder da carta
+    superPoder2 = ((float)populacao2) + (area2) + (PIB2 * 1e9f) + ((float)numero_de_pontos_turisticos2) + (inverso_densidade2) + (PIB_per_capita2);
+
+    // ====== Comparação de cartas ======
+    printf("\n=========================================\n");
+    printf("\nCOMPARAÇÃO DE CARTAS:\n");
+    printf("População: Carta 1 venceu? %d\n", (populacao1 > populacao2));
+    printf("Área: Carta 1 venceu? %d\n", (area1 > area2));
+    printf("PIB: Carta 1 venceu? %d\n", (PIB1 > PIB2));
+    printf("Pontos Turísticos: Carta 1 venceu? %d\n", (numero_de_pontos_turisticos1 > numero_de_pontos_turisticos2));
+    printf("Densidade Populacional: Carta 1 venceu? %d\n", (inverso_densidade1 > inverso_densidade2));
+    printf("PIB per Capita: Carta 1 venceu? %d\n", (PIB_per_capita1 > PIB_per_capita2));
+    printf("Super Poder: Carta 1 venceu? %d\n", (superPoder1 > superPoder2));
+    printf("\n=========================================\n");
+
 
 
     // ====== Exibir cartas ======
     // Exibe os atributos das duas cartas em formato organizado
-    printf("\n=============================\n");
+    printf("\n=========================================\n");
     printf("\n\nDADOS DA CARTA 1:\n");
     printf("Estado: %s\n", estado1);
     printf("Código: %s\n", codigo_da_carta1);
     printf("Nome da Cidade: %s\n", nome_da_cidade1);
-    printf("População: %d\n", populacao1);
-    // Formata a exibição da área com três casas decimais para maior precisão
+    printf("População: %lu\n", populacao1);
+    // Formata a exibição da área com duas casas decimais
     printf("Área: %.2f km²\n", area1);
-    // Formata o PIB com 1 casa decimal para consistência com valores monetários
+    // Formata o PIB com 2 casa decimal para consistência com valores monetários
     printf("PIB: %.2f bilhões de reais\n", PIB1);
     printf("Número de pontos turísticos: %d\n", numero_de_pontos_turisticos1);
     printf("Densidade Populacional: %.2f hab/km²\n", densidade_populacional1);
     printf("PIB per capita: %.0f reais\n", PIB_per_capita1);
+    printf("Superpoder: %.2f\n", superPoder1);
+    printf("\n=========================================\n");
 
 
+
+    printf("\n=========================================\n");
     printf("\n\nDADOS DA CARTA 2:\n");
     printf("Estado: %s\n", estado2);
     printf("Código: %s\n", codigo_da_carta2);
     printf("Nome da Cidade: %s\n", nome_da_cidade2);
-    printf("População: %d\n", populacao2);
-    // Formata a exibição da área com três casas decimais para maior precisão
+    printf("População: %lu\n", populacao2);
+    // Formata a exibição da área com duas casas decimais
     printf("Área: %.2f km²\n", area2);
-    // Formata o PIB com 1 casa decimal para consistência com valores monetários
+    // Formata o PIB com 2 casa decimal para consistência com valores monetários
     printf("PIB: %.2f bilhões de reais\n", PIB2);
     printf("Número de pontos turísticos: %d\n", numero_de_pontos_turisticos2);
-    printf("Densidade Populacional: %.2f hab/km2\n", densidade_populacional2);
+    printf("Densidade Populacional: %.2f hab/km²\n", densidade_populacional2);
     printf("PIB per capita: %.0f reais\n", PIB_per_capita2);
+    printf("Superpoder: %.2f\n", superPoder2);
+    printf("\n=========================================\n");
 
     return 0;
 }
